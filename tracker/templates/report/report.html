@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  Reports
+{% endblock title %}
+{% block content %}
+  <div class="container pt-3">
+    <h2 class="text-body-emphasis">REPORTS</h2>
+    <div class="d-grid gap-3 d-md-block mt-3">
+      <form method="get" class="d-flex bd-highlight d-flex-md-block">
+        <div class="mb-2 mb-md-0">
+          {% bootstrap_field filter.form.day show_label=False wrapper_class="d-flex me-2" %}
+        </div>
+        <div class="mb-2 mb-md-0">
+          {% bootstrap_field filter.form.project show_label=False wrapper_class="me-2" %}
+        </div>
+        <div class="mb-2 mb-md-0">
+          {% bootstrap_field filter.form.project__client show_label=False wrapper_class="me-2" %}
+        </div>
+        <div class="mb-2 mb-md-0">
+          {% bootstrap_button button_type="submit" button_class="btn-secondary me-2" content="Search" %}
+          {% url "report:report" as list %}
+          {% bootstrap_button button_type="link" button_class="btn-secondary " content="Clear" href=list %}
+        </div>
+      </form>
+      <style>
+          @media (max-width: 767.98px) {
+              .d-flex-md-block {
+                  flex-direction: column;
+              }
+          }
+      </style>
+    </div>
+  </div>
+  <div class="container mt-3">
+    <h4>Total duration: {% if total_duration %}{{ total_duration }}{% endif %}</h4>
+    <form method="get">
+      {% if total_duration %}
+        <button class="btn btn-secondary me-2" type="button" onclick="generatePDF()">Generate PDF</button>
+        <script>
+            function formatDate(date) {
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                return day + '.' + month + '.' + year;
+            }
+
+            function generatePDF() {
+                var startDate = new Date("{% if filter.form.day.value %}{{ filter.form.day.value.0 }}{% endif %}");
+                var endDate = new Date("{% if filter.form.day.value %}{{ filter.form.day.value.1 }}{% endif %}");
+                var selectedDate = formatDate(startDate) + " - " + formatDate(endDate);
+                var totalDuration = "Total duration: {{ total_duration }} ч.";
+                var content = document.querySelector(".table-responsive table tbody").innerHTML;
+                var newWindow = window.open('', '_blank');
+                newWindow.document.open();
+                newWindow.document.write('<html><head><title>Report ' + selectedDate + '</title></head><body>');
+                newWindow.document.write('<h2>Report</h2>');
+                newWindow.document.write('<div><h3>' + selectedDate + '</h3></div>');
+                newWindow.document.write('<div><h3>' + totalDuration + '</h3></div>');
+                newWindow.document.write('<style>');
+                newWindow.document.write('body { font-family: sans-serif; }');
+                newWindow.document.write('h1, h2 { font-family: sans-serif; }');
+                newWindow.document.write('table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }');
+                newWindow.document.write('th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }');
+                newWindow.document.write('th { background-color: #f2f2f2; }');
+                newWindow.document.write('</style>');
+                newWindow.document.write('<table>');
+                newWindow.document.write('<thead>');
+                newWindow.document.write('<tr>');
+                newWindow.document.write('<th>Date</th>');
+                newWindow.document.write('<th>Project Name</th>');
+                newWindow.document.write('<th>Time</th>');
+                newWindow.document.write('<th>Duration</th>');
+                newWindow.document.write('</tr>');
+                newWindow.document.write('</thead>');
+                newWindow.document.write('<tbody>');
+                newWindow.document.write(content);
+                newWindow.document.write('</tbody>');
+                newWindow.document.write('</table>');
+                newWindow.document.write('</body></html>');
+                newWindow.document.close();
+                newWindow.print();
+            }
+        </script>
+      {% endif %}
+    </form>
+  </div>
+  <div class="container pt-3 pb-5">
+    <div class="table-responsive pb-5">
+      <table class="card-table table-nowrap table table-sm table-hover">
+        <thead>
+          <tr>
+            <th colspan="1"
+                title="Toggle SortBy"
+                class="is-sortable"
+                style="cursor: pointer">Date
+            </th>
+            <th colspan="1"
+                title="Toggle SortBy"
+                class="is-sortable"
+                style="cursor: pointer">Project Name
+            </th>
+            <th colspan="1"
+                title="Toggle SortBy"
+                class="is-sortable"
+                style="cursor: pointer">Time
+            </th>
+            <th colspan="1"
+                title="Toggle SortBy"
+                class="is-sortable"
+                style="cursor: pointer">Duration
+            </th>
+          </tr>
+        </thead>
+        <tbody class="fs-base">
+          {% for time in object_list %}
+            <tr {% if time.stop == None %}class="table-danger"{% endif %}>
+              <td>{{ time.day|date:"d.m.Y" }}</td>
+              <td>{{ time.project|default:"----" }}</td>
+              <td>{{ time.start|time:"H:i" }} - {{ time.stop|time:"H:i" }}</td>
+              <td><b>{{ time.duration }}</b></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+{% endblock content %}

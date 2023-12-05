@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  Sign-Up
+{% endblock %}
+{% block content %}
+  <div class="d-flex flex-column mt-5">
+    <div style="width: 20rem;" class="m-auto">
+      <h3 class="mb-4 text-center">Welcome To FixTime</h3>
+      <form method="POST" action="{% url "signup" %}">
+        {% csrf_token %}
+        {% bootstrap_form form show_label=False %}
+        {% bootstrap_button button_type="submit" button_class="btn-warning w-100 py-2 mt-3" content="Sign-Up" %}
+      </form>
+      <div class="pt-4 text-center">
+        <p>Already have an account? <a href="{% url "login" %}">Login</a></p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}
+  Home
+{% endblock %}
+{% block content %}
+  <!--Top-->
+  <div id="Top" class="text-center pt-5">
+    <div class="container pt-5">
+      <h1 class="text-body-emphasis">Take effective control of working time</h1>
+      <p class="col-lg-8 mx-auto lead">
+        With FixTime, you can easily track time on tasks and projects, create time entries, capture billable hours,
+        and save time on paperwork when it comes to generating time reports.
+        Dive into a detailed overview of the time utilization and precisely evaluate productivity.
+      </p>
+    </div>
+  </div>
+  <!--End Top-->
+  <!--Cases-->
+  <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5">
+      <div class="col-lg-6">
+        <h1 class="text-body-emphasis lh-1 mb-3">Automate your time tracking</h1>
+        <p class="lead">By capturing every second of your work day, FixTime stops billable time from falling
+          through the cracks. Report and invoice clients transparently, and use accurate company time data
+          to improve project rates and budgets.
+        </p>
+      </div>
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{% static "img/client.png" %}" class="d-block mx-lg-auto img-fluid" width="700"
+             height="500" loading="lazy">
+      </div>
+    </div>
+    <div class="row flex-lg-row-reverse align-items-center g-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{% static "img/dashboard.png" %}" class="d-block mx-lg-auto img-fluid" width="700"
+             height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="text-body-emphasis lh-1 mb-3">Automate your time tracking</h1>
+        <p class="lead">By capturing every second of your work day, FixTime stops billable time from falling
+          through the cracks. Report and invoice clients transparently, and use accurate company time data
+          to improve project rates and budgets.
+        </p>
+      </div>
+    </div>
+    <div class="row flex-lg-row-reverse align-items-center g-5">
+      <div class="col-lg-6">
+        <h1 class="text-body-emphasis lh-1 mb-3">Automate your time tracking</h1>
+        <p class="lead">By capturing every second of your work day, FixTime stops billable time from falling
+          through the cracks. Report and invoice clients transparently, and use accurate company time data
+          to improve project rates and budgets.
+        </p>
+      </div>
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{% static "img/report.png" %}" class="d-block mx-lg-auto img-fluid" width="700"
+             height="500" loading="lazy">
+      </div>
+    </div>
+  </div>
+  <!--End Cases-->
+  <!--Features-->
+  <div id="Feature" class="pt-5">
+    <div class="container">
+      <h1 class="pb-2 border-bottom text-center">Best time tracking features for you</h1>
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="col d-flex align-items-start">
+          <div>
+            <h3 class="fs-2 text-body-emphasis">Time Tracking</h3>
+            <p>Capture and control every task you work on. Automated time tracking in FixTime helps you remain
+              focused on actual work to lead to better results and efficiency.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <div>
+            <h3 class="fs-2 text-body-emphasis">Billing & Invoicing</h3>
+            <p>Set billable rates and easily create invoices.
+              FixTime automates and simplifies billing and invoicing software to help you get paid without stress.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <div>
+            <h3 class="fs-2 text-body-emphasis">Project Tracking</h3>
+            <p>Create projects, set rates and budgets.
+              FixTime designed to manage projects time from start to finish, set budgets, see your progress,
+              and analyze profits.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End Features-->
+  <!--About-->
+  <div id="About" class="pt-5 pb-5">
+    <div class="text-center">
+      <div class="container">
+        <h1 class="text-body-emphasis">About FixTime</h1>
+        <p class="col-lg-8 mx-auto lead">
+          FixTime a simple application that helps track the time spent on work and issue invoices.
+          FixTime perfect for freelancers who have an hourly wage for their work.
+        </p>
+      </div>
+    </div>
+  </div>
+  <!--End About-->
+  {% include "include/footer.html" %}
+{% endblock %}

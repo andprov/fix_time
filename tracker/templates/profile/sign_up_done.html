@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  Confirm Email Sent
+{% endblock %}
+{% block content %}
+  <div class="d-flex flex-column mt-5 pb-5">
+    <div style="width: 20rem;" class="m-auto">
+      <h3 class="mb-4 text-center">Confirm Email Sent</h3>
+      <p class="text-center">
+        We have emailed you instructions to confirm your email address.
+      </p>
+      <p class="text-center">
+        If you don’t receive an email, please check your spam folder.
+      </p>
+      <p class="text-center">
+        Resending the confirmation code.
+      </p>
+      {% url "profile:send_confirm_email" as  send_confirm_email %}
+      {% bootstrap_button button_type="link" button_class="btn-secondary w-100 py-2 mt-3" content="Send Confirm Email" href=send_confirm_email %}
+    </div>
+  </div>
+{% endblock %}

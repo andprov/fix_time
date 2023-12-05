@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  Email Confirm
+{% endblock %}
+{% block content %}
+  <div class="d-flex flex-column mt-5 pb-5">
+    <div style="width: 20rem;" class="m-auto">
+      {% if valid_url %}
+        <h3 class="mb-4 text-center">Email Confirm</h3>
+        <p class="text-center">Your email has been successfully confirmed. Now you can log in to your personal
+          account.
+        </p>
+        {% url "login" as login %}
+        {% bootstrap_button button_type="link" button_class="btn-warning w-100 py-2 mt-3" content="Login" href=login %}
+      {% else %}
+        <h3 class="mb-4 text-center">Invalid link</h3>
+        <p class="text-center">The signup confirm link was invalid, possibly because it has already been used.
+          Please request a new confirm link.
+        </p>
+        {% url "profile:send_confirm_email" as  send_confirm_email %}
+        {% bootstrap_button button_type="link" button_class="btn-secondary w-100 py-2 mt-3" content="Send Confirm Email" href=send_confirm_email %}
+        {% include "include/button/go_home.html" %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  Edit Profile
+{% endblock %}
+{% block content %}
+  <div class="d-flex flex-column mt-5 pb-5">
+    <div style="width: 20rem;" class="m-auto">
+      <h3 class="mb-4 text-center">Edit Profile</h3>
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form show_label=False %}
+        {% bootstrap_button button_type="submit" button_class="btn-warning w-100 py-2 mt-3" content="Save" %}
+        {% include "include/button/back_to_profile.html" %}
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  Profile
+{% endblock %}
+{% block content %}
+  <div class="container pt-3">
+    <h2 class="text-body-emphasis">PROFILE</h2>
+    <table>
+      <tr>
+        <td>Username:</td>
+        <td><b class="p-2">{{ user.username }}</b></td>
+      </tr>
+      <tr>
+        <td>Email:</td>
+        <td><b class="p-2">{{ user.email }}</b></td>
+      </tr>
+      <tr>
+        <td>First name:</td>
+        <td><b class="p-2">{{ user.first_name }}</b></td>
+      </tr>
+      <tr>
+        <td>Last name:</td>
+        <td><b class="p-2">{{ user.last_name }}</b></td>
+      </tr>
+    </table>
+    <div class="d-grid gap-3 d-md-block mt-3">
+      {% url "profile:update" as update %}
+      {% bootstrap_button button_type="link" button_class="btn-secondary" content="Edit Profile" href=update %}
+      {% url "password_change" as password_change %}
+      {% bootstrap_button button_type="link" button_class="btn-secondary" content="Password Change" href=password_change %}
+      {% url "logout" as logout %}
+      {% bootstrap_button button_type="link" button_class="btn-warning" content="Logout" href=logout %}
+    </div>
+    <div class="mt-5">
+      <h3 class="pb-2 border-bottom text-danger">Danger zone</h3>
+      <p>This action cannot be undone!</p>
+      <div class="d-grid gap-3 d-md-block mt-3">
+        {% url "profile:delete" as delete %}
+        {% bootstrap_button button_type="link" button_class="btn-danger" content="Delete Profile" href=delete %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

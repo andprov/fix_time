@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+  404 Not Found
+{% endblock %}
+{% block content %}
+  <!--404 Error-->
+  <div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 py-5 fw-bold text-body-emphasis">
+      404 Not found
+    </h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">
+        The page you are looking for doesn’t exist or was moved. Please make sure the page address was correct.
+      </p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a class="btn btn-warning px-5 mb-5" href="{% url "home:frontpage" %}">Go Home</a>
+      </div>
+    </div>
+  </div>
+  <!--End 404 Error-->
+{% endblock %}

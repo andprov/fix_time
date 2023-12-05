@@ -1,0 +1,71 @@
+<header class="text-bg-dark sticky-top">
+  {% load django_bootstrap5 %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eighth navbar example">
+    <div class="container">
+      <div class="logo">
+        {% include "include/logo.html" %}
+      </div>
+      {% if user.is_authenticated %}
+        <!--Dashboard Header-->
+        {% with request.resolver_match.view_name as view_name %}
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
+                  aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2"
+               aria-labelledby="offcanvasNavbar2Label">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Menu</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close">
+              </button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a href="{% url "dashboard:dashboard" %}"
+                     class="nav-link  {% if view_name == 'dashboard:dashboard' %} active {% endif %}">
+                    Dashboard
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url "client:list" %}"
+                     class="nav-link {% if view_name == 'client:list' %} active {% endif %}">
+                    Clients
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url "project:list" %}"
+                     class="nav-link {% if view_name == 'project:list' %} active {% endif %}">
+                    Projects
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url "report:report" %}"
+                     class="nav-link {% if view_name == 'report:report' %} active {% endif %}">
+                    Reports
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url "profile:profile" %}"
+                     class="nav-link {% if view_name == "profile:profile" %} active {% endif %}">
+                    Profile
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        {% endwith %}
+        <!--End Dashboard Header-->
+      {% else %}
+        <!--Homepage Header-->
+        <div class="text-end">
+          {% url "login" as login %}
+          {% bootstrap_button button_type="link" button_class="btn-outline-light" content="Login" href=login %}
+          {% url "signup" as signup %}
+          {% bootstrap_button button_type="link" button_class="btn-outline-warning" content="Sign-Up" href=signup %}
+        </div>
+        <!--End Homepage Header-->
+      {% endif %}
+    </div>
+  </nav>
+</header>

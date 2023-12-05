@@ -1,0 +1,10 @@
+<a class="d-flex mb-lg-0 text-warning text-decoration-none me-3"
+  {% if user.is_authenticated %}
+   href="{% url "dashboard:dashboard" %}"
+  {% else %}
+   href="{% url "home:frontpage" %}"
+  {% endif %} >
+  <img src="{% static "img/logo-yellow.svg" %}" width="35" height="35" class="d-inline-block me-2"
+       alt="FixTime">
+  <h2>FixTime</h2>
+</a>

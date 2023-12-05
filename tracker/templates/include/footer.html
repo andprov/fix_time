@@ -1,0 +1,18 @@
+<footer>
+  {% load django_bootstrap5 %}
+  {% if not user.is_authenticated %}
+    <div class="text-center text-bg-dark">
+      <div class="pt-5 pb-3">
+        <h1>Make time work for you!</h1>
+      </div>
+      {% url "signup" as signup %}
+      {% bootstrap_button button_type="link" button_class="btn-outline-warning" content="Sign-Up" href=signup %}
+    </div>
+  {% endif %}
+  <div class="footer mt-auto py-3 text-bg-dark text-center">
+    <a href="https://github.com/andprov/fix_time" target="_blank">
+      <img src="{% static "img/github-mark-white.svg" %}" width="25" height="25" class="d-inline-block align-top me-1"
+           alt="GitHub">
+    </a>
+  </div>
+</footer>

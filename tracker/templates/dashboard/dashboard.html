@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  Dashboard
+{% endblock title %}
+{% block content %}
+  <div class="container pt-3">
+    <h2 class="text-body-emphasis">DASHBOARD</h2>
+    <div class="d-flex flex-column flex-md-row mt-3">
+      {% url "dashboard:create" as create %}
+      {% bootstrap_button button_type="link" button_class="btn-secondary mb-3 me-md-5" content="+ Add Time Entry" href=create %}
+      <form method="get" class="d-flex bd-highlight d-flex-md-block">
+        {% bootstrap_field filter.form.day show_label=False wrapper_class="me-2" %}
+        {% url "dashboard:dashboard" as list %}
+        {% bootstrap_button button_type="submit" button_class="btn-secondary mb-3 me-1" content="<" name="direction" value="backward" %}
+        {% bootstrap_button button_type="link" button_class="btn-secondary mb-3 me-1" content="." href=list %}
+        {% bootstrap_button button_type="submit" button_class="btn-secondary mb-3 me-2" content=">" name="direction" value="forward" %}
+        {% bootstrap_button button_type="submit" button_class="btn-secondary mb-3 me-2" content="Search" %}
+      </form>
+    </div>
+    <form action="{% url "dashboard:dashboard" %}"
+          method="post"
+          class="d-flex bd-highlight d-flex-md-block">
+      {% if active_timer %}
+        {% csrf_token %}
+        {% url "dashboard:close" as close %}
+        {% bootstrap_button button_type="submit" button_class="btn-warning mb-3 me-2" content="Stop Active Timer" %}
+        <h2>{{ active_timer_duration }}</h2>
+      {% endif %}
+    </form>
+  </div>
+  <div class="container pt-3 pb-5">
+    <div class="table-responsive pb-5">
+      <table class="card-table table-nowrap table table-sm table-hover">
+        <thead>
+          <tr>
+            <th colspan="1"
+                title="Toggle SortBy"
+                class="is-sortable"
+                style="cursor: pointer">Project Name
+            </th>
+            <th colspan="1"
+                title="Toggle SortBy"
+                class="is-sortable"
+                style="cursor: pointer">Time
+            </th>
+            <th colspan="1"
+                title="Toggle SortBy"
+                class="is-sortable"
+                style="cursor: pointer">Duration
+            </th>
+          </tr>
+        </thead>
+        <tbody class="fs-base">
+          {% for time in page_obj %}
+            <tr {% if time.stop == None %}class="table-danger"{% endif %}>
+              <td>
+                <a href="{% url "dashboard:update" time.pk %}"
+                   class="d-flex nav-link mb-2 mt-2">
+                  {% if time.project %}
+                    {{ time.project }}
+                  {% else %}
+                    ----
+                  {% endif %}
+                </a>
+              </td>
+              <td>
+                <a href="{% url "dashboard:update" time.pk %}"
+                   class="d-flex nav-link mb-2 mt-2">
+                  {{ time.start|time:"H:i" }} -
+                  {% if time.stop %}
+                    {{ time.stop|time:"H:i" }}
+                  {% else %}
+                    now
+                  {% endif %}
+                </a>
+              </td>
+              <td>
+                <a href="{% url "dashboard:update" time.pk %}"
+                   class="d-flex nav-link mb-2 mt-2">
+                  {% if time.stop %}
+                    <b>{{ time.duration }}</b>
+                  {% else %}
+                    <h6 class="badge rounded-pill bg-danger">Active</h6>
+                  {% endif %}
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% include "include/paginator.html" %}
+    </div>
+  </div>
+{% endblock content %}

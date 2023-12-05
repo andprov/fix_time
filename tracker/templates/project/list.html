@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  Project
+{% endblock %}
+{% block content %}
+  <div class="container pt-3">
+    <h2 class="text-body-emphasis">PROJECT</h2>
+    <div class="d-flex flex-column flex-md-row mt-3">
+      {% url "project:create" as create %}
+      {% bootstrap_button button_type="link" button_class="btn-secondary mb-3 me-md-5" content="+ New Project" href=create %}
+      <form method="GET" class="d-flex bd-highlight d-flex-md-block">
+        {% bootstrap_field filter.form.name show_label=False wrapper_class="me-2" placeholder="Project Name" %}
+        {% bootstrap_field filter.form.status show_label=False wrapper_class="me-2" %}
+        {% bootstrap_button button_type="submit" button_class="btn-secondary mb-3 me-2" content="Search" %}
+        {% url "project:list" as list %}
+        {% bootstrap_button button_type="link" button_class="btn-secondary mb-3" content="Clear" href=list %}
+      </form>
+    </div>
+  </div>
+  <div class="container pt-3">
+    <div class="table-responsive">
+      <table class="card-table table-nowrap table table-sm table-hover">
+        <thead>
+          <tr>
+            <th colspan="1" title="Toggle SortBy" class="is-sortable" style="cursor: pointer;">Project Name</th>
+            <th colspan="1" title="Toggle SortBy" class="is-sortable" style="cursor: pointer;">Client</th>
+            <th colspan="1" title="Toggle SortBy" class="is-sortable" style="cursor: pointer;">Status</th>
+          </tr>
+        </thead>
+        <tbody class="fs-base">
+          {% for project in page_obj %}
+            <tr>
+              <td>
+                <a href="{% url "project:update" project.pk %}" class="d-flex nav-link mb-2 mt-2">
+                  {{ project.name }}
+                </a>
+              </td>
+              <td>
+                <a href="{% url "project:update" project.pk %}" class="d-flex nav-link mb-2 mt-2">
+                  {% if project.client %}{{ project.client.name }}{% else %}&nbsp;{% endif %}
+                </a>
+              </td>
+              <td>
+                <a href="{% url "project:update" project.pk %}" class="d-flex nav-link mb-2 mt-2">
+                  {{ project.status }}
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% include "include/paginator.html" %}
+    </div>
+  </div>
+{% endblock %}
