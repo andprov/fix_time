@@ -127,7 +127,7 @@ sudo docker push <username>/tracker_back
 sudo docker push <username>/tracker_gateway
 ```
 
-Copy the `.env` and `docker-compose.prod.yml` files to a remote server
+Copy the `.env` and `docker-compose.prod.yml` files to a remote server:
 ```shell
 scp .env docker-compose.prod.yml <username>@<server_address>:/home/<username>/<app_name>
 ```
