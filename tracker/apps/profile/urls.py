@@ -9,7 +9,7 @@ from apps.profile.views import (
     UserEmailConfirmCompleteView,
 )
 
-app_name = "pofile"
+app_name = "profile"
 
 urlpatterns = [
     path(

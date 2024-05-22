@@ -8,4 +8,4 @@ class ClientFilter(FilterSet):
 
     class Meta:
         name = Client
-        fields = ["name"]
+        fields = ("name",)

@@ -14,4 +14,7 @@ class ProjectAdmin(admin.ModelAdmin):
         "payment_type",
     )
     search_fields = ("name",)
-    list_filter = ("user", "client")
+    list_filter = (
+        "user",
+        "client",
+    )

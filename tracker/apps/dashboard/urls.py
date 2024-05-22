@@ -10,8 +10,24 @@ from apps.dashboard.views import (
 app_name = "dashboard"
 
 urlpatterns = [
-    path("", DashboardListView.as_view(), name="dashboard"),
-    path("create/", DashboardCreateView.as_view(), name="create"),
-    path("<int:pk>/update/", DashboardUpdateView.as_view(), name="update"),
-    path("<int:pk>/delete/", DashboardDeleteView.as_view(), name="delete"),
+    path(
+        "",
+        DashboardListView.as_view(),
+        name="dashboard",
+    ),
+    path(
+        "create/",
+        DashboardCreateView.as_view(),
+        name="create",
+    ),
+    path(
+        "<int:pk>/update/",
+        DashboardUpdateView.as_view(),
+        name="update",
+    ),
+    path(
+        "<int:pk>/delete/",
+        DashboardDeleteView.as_view(),
+        name="delete",
+    ),
 ]
