@@ -53,8 +53,9 @@ class SendConfirmEmailMixin:
         confirm_url = self.get_confirm_url()
         send_mail(
             subject="Confirm email address.",
-            message=f"Follow the link to activate your account."
-            f"\n{confirm_url}",
+            message=(
+                f"Follow the link to activate your account.\n{confirm_url}"
+            ),
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[email],
             fail_silently=True,

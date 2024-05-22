@@ -21,4 +21,8 @@ class ReportFilter(FilterSet):
 
     class Meta:
         model = Time
-        fields = ("day", "project__client", "project")
+        fields = (
+            "day",
+            "project__client",
+            "project",
+        )
